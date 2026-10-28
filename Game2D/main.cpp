@@ -4,11 +4,16 @@
 using namespace sf;
 
 bool onGround = true;
+bool onFloor = false;
+
+std::vector<RectangleShape> boxes;
+std::vector<CircleShape> coins;
 
 float velocityY = 0.0;
+float velocityX = 0.0;
 
-auto now = std::chrono::system_clock::now();
-time_t Time1 = std::chrono::system_clock::to_time_t(now);
+bool directionX = 0;
+bool directionY = 0;
 
 int main()
 {
@@ -21,9 +26,24 @@ int main()
     player.setFillColor(sf::Color::Magenta);
     player.setPosition(200, 200);
 
+    RectangleShape ground(sf::Vector2f(800, 500));
+    ground.setFillColor(sf::Color::Green);
+    ground.setPosition(0, 225);
+
+    RectangleShape box(sf::Vector2f(15, 15));
+    box.setFillColor(sf::Color::White);
+    box.setPosition(250, 210);
+    boxes.push_back(box);
+
+    RectangleShape box2(sf::Vector2f(15, 50));
+    box2.setFillColor(sf::Color::White);
+    box2.setPosition(450, 175);
+    boxes.push_back(box2);
+
     CircleShape coin(10, 8);
     coin.setFillColor(sf::Color::Yellow);
     coin.setPosition(300, 180);
+    coins.push_back(coin);
 
     sf::Clock clock; 
 
@@ -36,11 +56,48 @@ int main()
                 window.close();
         }
 
-        player.move(0.f, velocityY);
+        //move
+        player.move(velocityX, velocityY);
 
-        sf::Time elapsed = clock.restart();
-        float dt = elapsed.asSeconds() * 60.0f;
+        //collisions
+        for (const auto& box : boxes) {
+            if (player.getGlobalBounds().intersects(box.getGlobalBounds())) {
+                onFloor = true;
+                if (directionY == 0) {
+                    velocityY = 0;
+                    player.setPosition(player.getPosition().x, box.getGlobalBounds().top - player.getGlobalBounds().height);
+                }
+                else if (directionY == 1) {
+                    velocityY = 0;
+                    player.setPosition(player.getPosition().x, box.getGlobalBounds().top + player.getGlobalBounds().height);
+                }
+            }
+            else {
+                onFloor = false;
+            }
+        }
+        for (const auto& box : boxes) {
+            if (player.getGlobalBounds().intersects(box.getGlobalBounds())) {
+                onFloor = true;
+                if (directionX == 1) {
+                    velocityX = 0;
+                    player.setPosition(box.getGlobalBounds().left - player.getGlobalBounds().width, player.getPosition().y);
+                }
+                else if (directionX == 0) {
+                    velocityX = 0;
+                    player.setPosition(box.getGlobalBounds().left + player.getGlobalBounds().width, player.getPosition().y);
+                }
+                else {
+                    player.setPosition(box.getGlobalBounds().left - player.getGlobalBounds().width, player.getPosition().y);
+                }
+            }
+            else {
+                onFloor = false;
+            }
+        }
 
+
+        //coins
         if (player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
             coin.setPosition(-200, -200);
         }
@@ -49,7 +106,7 @@ int main()
         if (player.getPosition().y < 200.f) {
             onGround = false;
         }
-        else if (player.getPosition().y >= 200.f){
+        if (player.getPosition().y >= 200.f){
             player.setPosition(player.getPosition().x, 200.f);
             onGround = true;
             velocityY = 0.0f;
@@ -58,36 +115,41 @@ int main()
         //gravity
         if (!onGround) {
             velocityY += 0.5f;
-            //player.setPosition(player.getPosition().x, player.getPosition().y + 1);
         }
 
         //move
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            player.setPosition(player.getPosition().x - 5, player.getPosition().y);
+            velocityX = -5;
+            directionX = 0;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            player.setPosition(player.getPosition().x + 5, player.getPosition().y);
+            velocityX = 5;
+            directionX = 1;
+        }
+        else{
+            velocityX = 0;
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onGround) {
+        //check directionY
+        if (velocityY > 0) {
+            directionY = 0;
+        }
+        else if (velocityY < 0) {
+            directionY = 1;
+        }
+
+        //jump
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onFloor) {
             onGround = false;
             velocityY = -7.0f;
-            
-            /*
-            auto now2 = std::chrono::system_clock::now();
-            time_t Time2 = std::chrono::system_clock::to_time_t(now2);
-            if (Time2 - Time1 >= 1) {
-                if (!jumped) {
-                    player.setPosition(player.getPosition().x, player.getPosition().y - 50);
-                    jumped = true;
-                    Time1 = Time2;
-                }
-            }
-            */
         }
 
         window.clear(Color::Blue);
         window.draw(player);
+        for (const auto& box : boxes) {
+            window.draw(box);
+        }
+        window.draw(ground);
         window.draw(coin);
         window.display();
     }
