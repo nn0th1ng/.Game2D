@@ -45,6 +45,11 @@ int main()
     coin.setPosition(300, 180);
     coins.push_back(coin);
 
+    RectangleShape xbox(sf::Vector2f(40, 55));
+    xbox.setFillColor(sf::Color::White);
+    xbox.setPosition(100, 170);
+    boxes.push_back(xbox);
+
     sf::Clock clock; 
 
     while (window.isOpen())
@@ -56,10 +61,10 @@ int main()
                 window.close();
         }
 
-        //move
-        player.move(velocityX, velocityY);
+        //move and collisions
 
-        //collisions
+        player.move(0.f, velocityY);
+
         for (const auto& box : boxes) {
             if (player.getGlobalBounds().intersects(box.getGlobalBounds())) {
                 onFloor = true;
@@ -72,10 +77,10 @@ int main()
                     player.setPosition(player.getPosition().x, box.getGlobalBounds().top + player.getGlobalBounds().height);
                 }
             }
-            else {
-                onFloor = false;
-            }
         }
+
+        player.move(velocityX, 0.f);
+
         for (const auto& box : boxes) {
             if (player.getGlobalBounds().intersects(box.getGlobalBounds())) {
                 onFloor = true;
@@ -85,17 +90,10 @@ int main()
                 }
                 else if (directionX == 0) {
                     velocityX = 0;
-                    player.setPosition(box.getGlobalBounds().left + player.getGlobalBounds().width, player.getPosition().y);
+                    player.setPosition(box.getGlobalBounds().left + box.getGlobalBounds().width, player.getPosition().y);
                 }
-                else {
-                    player.setPosition(box.getGlobalBounds().left - player.getGlobalBounds().width, player.getPosition().y);
-                }
-            }
-            else {
-                onFloor = false;
             }
         }
-
 
         //coins
         if (player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
@@ -109,6 +107,7 @@ int main()
         if (player.getPosition().y >= 200.f){
             player.setPosition(player.getPosition().x, 200.f);
             onGround = true;
+            onFloor = false;
             velocityY = 0.0f;
         }
 
@@ -141,6 +140,7 @@ int main()
         //jump
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onFloor) {
             onGround = false;
+            onFloor = false;
             velocityY = -7.0f;
         }
 
