@@ -1,14 +1,12 @@
-﻿  main.cpp
-D:\vs community\.Game2D\Game2D\main.cpp(78,35): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(79,38): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(84,36): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(85,39): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(91,41): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(92,44): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(97,41): warning C4305: аргумент: усечение из "double" в "float"
-D:\vs community\.Game2D\Game2D\main.cpp(98,44): warning C4305: аргумент: усечение из "double" в "float"
+﻿  Controller.cpp
+D:\vs community\.Game2D\Game2D\Controller.cpp(10,11): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+D:\vs community\.Game2D\Game2D\Controller.cpp(22,21): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\vs community\.Game2D\Game2D\Controller.cpp(26,21): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  alpha_level.cpp
+  Game.cpp
+  Objects.cpp
   Создание кода
-  1 of 161 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+  2 of 167 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено

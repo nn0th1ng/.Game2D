@@ -13,4 +13,6 @@ extern int speed;
 extern bool directionX;
 extern bool directionY;
 
+extern int money;
+
 void controller(sf::RectangleShape);

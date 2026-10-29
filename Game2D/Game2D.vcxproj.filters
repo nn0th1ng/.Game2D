@@ -13,17 +13,44 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Исходные файлы\levels">
+      <UniqueIdentifier>{cc99d8f8-d386-4ca2-9a08-ddaca9417ce8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\levels">
+      <UniqueIdentifier>{a4c038d1-9240-48ae-a7c4-4c9fc6079d81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="alpha_level.cpp">
+      <Filter>Исходные файлы\levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="alpha_level.h">
+      <Filter>Файлы заголовков\levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
