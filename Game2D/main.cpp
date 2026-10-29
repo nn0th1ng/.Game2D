@@ -1,10 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Controller.h"
 
 using namespace sf;
-
-bool onGround = true;
-bool onFloor = false;
 
 std::vector<RectangleShape> boxes;
 std::vector<CircleShape> coins;
@@ -12,13 +10,6 @@ std::vector<RectangleShape> enemies;
 std::vector<CircleShape> enemy_views;
 std::vector<RectangleShape> grounds;
 //std::vector<RectangleShape> entities;
-
-float velocityY = 0.0;
-float velocityX = 0.0;
-int speed = 2.5;
-
-bool directionX = 0;
-bool directionY = 0;
 
 int main()
 {
@@ -75,6 +66,8 @@ int main()
             if (event.type == Event::Closed)
                 window.close();
         }
+
+        controller(player);
 
         //enemy
         for (auto& view : enemy_views) {
@@ -163,39 +156,6 @@ int main()
             onGround = true;
             onFloor = false;
             velocityY = 0.0f;
-        }
-
-        //gravity
-        if (!onGround) {
-            velocityY += 0.5f;
-        }
-
-        //move
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            velocityX = -speed;
-            directionX = 0;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            velocityX = speed;
-            directionX = 1;
-        }
-        else{
-            velocityX = 0;
-        }
-
-        //check directionY
-        if (velocityY > 0) {
-            directionY = 0;
-        }
-        else if (velocityY < 0) {
-            directionY = 1;
-        }
-
-        //jump
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onGround || sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && onFloor) {
-            onGround = false;
-            onFloor = false;
-            velocityY = -7.0f;
         }
 
         window.clear(Color::Blue);

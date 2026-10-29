@@ -9,6 +9,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{012CFE20-2E50-4A41-84DD-7588ED87DCBC}|Game2D.vcxproj|D:\\vs community\\.Game2D\\Game2D\\Controller.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{012CFE20-2E50-4A41-84DD-7588ED87DCBC}|Game2D.vcxproj|solutionrelative:Controller.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{012CFE20-2E50-4A41-84DD-7588ED87DCBC}|Game2D.vcxproj|D:\\vs community\\.Game2D\\Game2D\\Controller.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{012CFE20-2E50-4A41-84DD-7588ED87DCBC}|Game2D.vcxproj|solutionrelative:Controller.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,13 +42,26 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Controller.h",
+              "DocumentMoniker": "D:\\vs community\\.Game2D\\Game2D\\Controller.h",
+              "RelativeDocumentMoniker": "Controller.h",
+              "ToolTip": "D:\\vs community\\.Game2D\\Game2D\\Controller.h",
+              "RelativeToolTip": "Controller.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-10-29T12:23:51.021Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Controller.cpp",
               "DocumentMoniker": "D:\\vs community\\.Game2D\\Game2D\\Controller.cpp",
               "RelativeDocumentMoniker": "Controller.cpp",
               "ToolTip": "D:\\vs community\\.Game2D\\Game2D\\Controller.cpp",
               "RelativeToolTip": "Controller.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-10-29T12:15:12.151Z",
               "EditorCaption": ""
@@ -57,7 +74,7 @@
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "D:\\vs community\\.Game2D\\Game2D\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAHwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-10-28T13:53:05.964Z",
               "EditorCaption": ""
