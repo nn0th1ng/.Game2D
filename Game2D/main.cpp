@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 
@@ -9,6 +10,7 @@ std::vector<RectangleShape> boxes;
 std::vector<CircleShape> coins;
 std::vector<RectangleShape> enemies;
 std::vector<CircleShape> enemy_views;
+std::vector<RectangleShape> grounds;
 //std::vector<RectangleShape> entities;
 
 float velocityY = 0.0;
@@ -32,15 +34,16 @@ int main()
     RectangleShape ground(sf::Vector2f(800, 500));
     ground.setFillColor(sf::Color::Green);
     ground.setPosition(0, 225);
+    grounds.push_back(ground);
 
     RectangleShape box(sf::Vector2f(15, 15));
     box.setFillColor(sf::Color::White);
     box.setPosition(250, 210);
     boxes.push_back(box);
 
-    RectangleShape box2(sf::Vector2f(15, 50));
+    RectangleShape box2(sf::Vector2f(100, 50));
     box2.setFillColor(sf::Color::White);
-    box2.setPosition(450, 175);
+    box2.setPosition(450, 140);
     boxes.push_back(box2);
 
     CircleShape coin(10, 8);
@@ -55,7 +58,7 @@ int main()
 
     RectangleShape enemy(sf::Vector2f(25, 30));
     enemy.setFillColor(sf::Color::Red);
-    enemy.setPosition(100, 195);
+    enemy.setPosition(465, 100);
     enemies.push_back(enemy);
     CircleShape enemy_view(50, 10);
     enemy_view.setFillColor(sf::Color::White);
@@ -79,18 +82,36 @@ int main()
                 if (player.getGlobalBounds().intersects(view.getGlobalBounds())) {
                     if (view.getPosition().x + view.getRadius() < player.getPosition().x) {
                        for (auto& e : enemies) {
-                           e.move(1, 0.f);
-                           view.move(1, 0.f);
+                           e.move(0.9, 0.f);
+                           view.move(0.7, 0.f);
                        }
                     }
                     else {
                         for (auto& e : enemies) {
-                            e.move(-1, 0.f);
-                            view.move(-1, 0.f);
+                            e.move(-0.9, 0.f);
+                            view.move(-0.9, 0.f);
+                        }
+                    }
+
+                    if (view.getPosition().y + view.getRadius() < player.getPosition().y) {
+                        for (auto& e : enemies) {
+                            e.move(0.f, 0.9);
+                            view.move(0.f, 0.9);
+                        }
+                    }
+                    else {
+                        for (auto& e : enemies) {
+                            e.move(0.f, -0.9);
+                            view.move(0.f, -0.9);
                         }
                     }
                 }
             }
+        }
+
+        //check position
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            std::cout << sf::Mouse::getPosition(window).x << "   " << sf::Mouse::getPosition(window).y << std::endl;
         }
 
         //move and collisions
@@ -105,7 +126,7 @@ int main()
                 }
                 else if (directionY == 1) {
                     velocityY = 0;
-                    player.setPosition(player.getPosition().x, box.getGlobalBounds().top + player.getGlobalBounds().height);
+                    player.setPosition(player.getPosition().x,box.getGlobalBounds().top+box.getGlobalBounds().height+player.getGlobalBounds().height);
                 }
             }
         }
@@ -188,7 +209,9 @@ int main()
         for (const auto& e : enemies) {
             window.draw(e);
         }
-        window.draw(ground);
+        for (const auto& g : grounds) {
+            window.draw(g);
+        }
         window.display();
     }
     return 0;
