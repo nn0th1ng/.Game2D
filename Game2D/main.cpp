@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <chrono>
 
 using namespace sf;
 
@@ -8,9 +7,13 @@ bool onFloor = false;
 
 std::vector<RectangleShape> boxes;
 std::vector<CircleShape> coins;
+std::vector<RectangleShape> enemies;
+std::vector<CircleShape> enemy_views;
+//std::vector<RectangleShape> entities;
 
 float velocityY = 0.0;
 float velocityX = 0.0;
+int speed = 2.5;
 
 bool directionX = 0;
 bool directionY = 0;
@@ -24,7 +27,7 @@ int main()
 
     RectangleShape player(sf::Vector2f(15, 25));
     player.setFillColor(sf::Color::Magenta);
-    player.setPosition(200, 200);
+    player.setPosition(270, 200);
 
     RectangleShape ground(sf::Vector2f(800, 500));
     ground.setFillColor(sf::Color::Green);
@@ -45,10 +48,19 @@ int main()
     coin.setPosition(300, 180);
     coins.push_back(coin);
 
-    RectangleShape xbox(sf::Vector2f(40, 55));
-    xbox.setFillColor(sf::Color::White);
-    xbox.setPosition(100, 170);
-    boxes.push_back(xbox);
+    CircleShape coin1(10, 8);
+    coin1.setFillColor(sf::Color::Yellow);
+    coin1.setPosition(100, 180);
+    coins.push_back(coin1);
+
+    RectangleShape enemy(sf::Vector2f(25, 30));
+    enemy.setFillColor(sf::Color::Red);
+    enemy.setPosition(100, 195);
+    enemies.push_back(enemy);
+    CircleShape enemy_view(50, 10);
+    enemy_view.setFillColor(sf::Color::White);
+    enemy_view.setPosition(enemy.getPosition().x - enemy_view.getRadius() + enemy.getGlobalBounds().width / 2, enemy.getGlobalBounds().top - enemy.getGlobalBounds().height);
+    enemy_views.push_back(enemy_view);
 
     sf::Clock clock; 
 
@@ -61,8 +73,27 @@ int main()
                 window.close();
         }
 
-        //move and collisions
+        //enemy
+        for (auto& view : enemy_views) {
+            for (const auto& box : boxes) {
+                if (player.getGlobalBounds().intersects(view.getGlobalBounds())) {
+                    if (view.getPosition().x + view.getRadius() < player.getPosition().x) {
+                       for (auto& e : enemies) {
+                           e.move(1, 0.f);
+                           view.move(1, 0.f);
+                       }
+                    }
+                    else {
+                        for (auto& e : enemies) {
+                            e.move(-1, 0.f);
+                            view.move(-1, 0.f);
+                        }
+                    }
+                }
+            }
+        }
 
+        //move and collisions
         player.move(0.f, velocityY);
 
         for (const auto& box : boxes) {
@@ -96,8 +127,10 @@ int main()
         }
 
         //coins
-        if (player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
-            coin.setPosition(-200, -200);
+        for (auto& coin : coins) {
+            if (player.getGlobalBounds().intersects(coin.getGlobalBounds())) {
+                coin.setPosition(-200, -200);
+            }
         }
 
         //ground
@@ -118,11 +151,11 @@ int main()
 
         //move
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            velocityX = -5;
+            velocityX = -speed;
             directionX = 0;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            velocityX = 5;
+            velocityX = speed;
             directionX = 1;
         }
         else{
@@ -149,8 +182,13 @@ int main()
         for (const auto& box : boxes) {
             window.draw(box);
         }
+        for (const auto& coin : coins) {
+            window.draw(coin);
+        }
+        for (const auto& e : enemies) {
+            window.draw(e);
+        }
         window.draw(ground);
-        window.draw(coin);
         window.display();
     }
     return 0;
